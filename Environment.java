@@ -37,12 +37,18 @@ public class Environment {
 				double yCoord = (double) (image.getHeight() - y - image.getHeight() / 2) / IMAGE_SIZE;
 				Vector3D ray = camera.getDirection(xCoord, yCoord);
 				Color color = traceRay(camera.getLocation(), ray, 5);
-				image.setRGB(x, y, color.getRGB());
+				if(color == null) {
+					image.setRGB(x, y, background.getRGB());
+				}
+				else {
+					image.setRGB(x, y, color.getRGB());
+				}
 			}
 		}
 	}
 
 	// Traces a ray from a source point to the nearest material.
+	// Returns null if there is no object in the ray's path.
 	private Color traceRay(Vector3D source, Vector3D direction, int depth) {
 		Material3D closest = null;
 		Vector3D surface = null;
@@ -59,9 +65,9 @@ public class Environment {
 			}
 		}
 		if(closest == null) {
-			return background;
+			return null;
 		}
-		return illumination(closest, surface, direction, 4);
+		return illumination(closest, surface, direction, depth);
 	}
 
 	// Calculates the color at the specified point based on illumination.
@@ -79,9 +85,14 @@ public class Environment {
 			double cosine = direction.dot(normal);
 			Vector3D reflection = direction.subtract(normal.scale(2 * cosine));
 			Color reflected = traceRay(surface, reflection, depth - 1);
-			double ratio = 1 - material.getReflectanceAt(surface);
-			ratio = ratio + ((1 - ratio) * Math.pow(intensity, 30));
-			return ColorUtils.mix(direct, reflected, ratio);
+			if(reflected == null) {
+				return direct;
+			}
+			else {
+				double ratio = 1 - material.getReflectanceAt(surface);
+				ratio = ratio + ((1 - ratio) * Math.pow(intensity, 30));
+				return ColorUtils.mix(direct, reflected, ratio);
+			}
 		}
 	}
 }

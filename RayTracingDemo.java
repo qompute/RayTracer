@@ -8,10 +8,10 @@ public class RayTracingDemo {
 
 	public static void main(String[] args) {
 		Environment environment = new Environment();
-		environment.addObject(new Sphere(0, -0.3, 8, 1, Color.RED, 0.5));
-		environment.addObject(new Sphere(2, 0, 10, 1, Color.GREEN, 0.5));
-		environment.addObject(new Sphere(-2, 0, 10, 1, Color.YELLOW, 0.5));
-		environment.addObject(new CheckerboardPlane(new Vector3D(0, 0, 12), new Vector3D(0, 0, -1)));
+		environment.addObject(new Sphere(0, -500, 0, 499, Color.LIGHT_GRAY, 0.5));
+		environment.addObject(new Sphere(0, -1, 3, 1, Color.RED, 0.5));
+		environment.addObject(new Sphere(1.5, 0, 5, 1, Color.GREEN, 0.5));
+		environment.addObject(new Sphere(-1.5, 0, 5, 1, Color.YELLOW, 0.5));
 
 		BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT,
 				BufferedImage.TYPE_INT_RGB);

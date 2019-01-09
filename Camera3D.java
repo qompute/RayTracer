@@ -8,10 +8,10 @@ public class Camera3D {
 	private Vector3D yBasis;
 
 	/**
-	 * Creates a camera at (0, 0, -1) with default properties.
+	 * Creates a camera at (0, 0, -2) with default properties.
 	 */
 	public Camera3D() {
-		this(new Vector3D(0, 0, -1),
+		this(new Vector3D(0, 0, -2),
 				new Vector3D(0, 0, 2),
 				new Vector3D(1, 0, 0),
 				new Vector3D(0, 1, 0));
