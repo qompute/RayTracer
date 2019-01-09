@@ -29,4 +29,11 @@ public abstract class Material3D {
 	 * @return the color of the material at that surface point
 	 */
 	public abstract Color getColorAt(Vector3D surface);
+
+	/**
+	 * Gets the diffuse reflectance scaling factor at the given point on the surface.
+	 * @param surface the point on the object's surface
+	 * @return the ratio of reflection at the given point
+	 */
+	public abstract double getReflectanceAt(Vector3D surface);
 }

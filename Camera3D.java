@@ -12,7 +12,7 @@ public class Camera3D {
 	 */
 	public Camera3D() {
 		this(new Vector3D(0, 0, -1),
-				new Vector3D(0, 0, 1),
+				new Vector3D(0, 0, 2),
 				new Vector3D(1, 0, 0),
 				new Vector3D(0, 1, 0));
 	}

@@ -10,11 +10,13 @@ public class Environment {
 	private List<Material3D> objects;
 	private Color background;
 	private double ambient;
+	private Vector3D light;
 
 	public Environment() {
 		objects = new ArrayList<>();
 		background = Color.BLACK;
 		ambient = 0.1;
+		light = new Vector3D(2, 2, -1);
 	}
 
 	public void addObject(Material3D object) {
@@ -40,6 +42,7 @@ public class Environment {
 		}
 	}
 
+	// Traces a ray from a source point to the nearest material.
 	private Color traceRay(Vector3D source, Vector3D direction, int depth) {
 		Material3D closest = null;
 		Vector3D surface = null;
@@ -58,6 +61,27 @@ public class Environment {
 		if(closest == null) {
 			return background;
 		}
-		return closest.getColorAt(surface); // TODO: change this line to include illumination
+		return illumination(closest, surface, direction, 4);
+	}
+
+	// Calculates the color at the specified point based on illumination.
+	private Color illumination(Material3D material, Vector3D surface, Vector3D direction, int depth) {
+		Vector3D normal = material.getNormal(surface);
+		Vector3D toLight = light.subtract(surface).normalize();
+		double intensity = normal.dot(toLight);
+		if(intensity < ambient)
+			intensity = ambient;
+		Color direct = ColorUtils.scaleColor(material.getColorAt(surface), intensity);
+		if(depth <= 1) {
+			return direct;
+		}
+		else {
+			double cosine = direction.dot(normal);
+			Vector3D reflection = direction.subtract(normal.scale(2 * cosine));
+			Color reflected = traceRay(surface, reflection, depth - 1);
+			double ratio = 1 - material.getReflectanceAt(surface);
+			ratio = ratio + ((1 - ratio) * Math.pow(intensity, 30));
+			return ColorUtils.mix(direct, reflected, ratio);
+		}
 	}
 }

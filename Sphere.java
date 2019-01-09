@@ -4,14 +4,14 @@ public final class Sphere extends SolidMaterial {
 	private final Vector3D center;
 	private final double radius;
 
-	public Sphere(double x, double y, double z, double radius, Color color) {
-		super(color);
+	public Sphere(double x, double y, double z, double radius, Color color, double reflectance) {
+		super(color, reflectance);
 		this.center = new Vector3D(x, y, z);
 		this.radius = radius;
 	}
 
-	public Sphere(Vector3D center, double radius, Color color) {
-		super(color);
+	public Sphere(Vector3D center, double radius, Color color, double reflectance) {
+		super(color, reflectance);
 		this.center = center;
 		this.radius = radius;
 	}
