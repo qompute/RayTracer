@@ -37,12 +37,7 @@ public class Environment {
 				double yCoord = (double) (image.getHeight() - y - image.getHeight() / 2) / IMAGE_SIZE;
 				Vector3D ray = camera.getDirection(xCoord, yCoord);
 				Color color = traceRay(camera.getLocation(), ray, 5);
-				if(color == null) {
-					image.setRGB(x, y, background.getRGB());
-				}
-				else {
-					image.setRGB(x, y, color.getRGB());
-				}
+				image.setRGB(x, y, color.getRGB());
 			}
 		}
 	}
@@ -65,7 +60,7 @@ public class Environment {
 			}
 		}
 		if(closest == null) {
-			return null;
+			return background;
 		}
 		return illumination(closest, surface, direction, depth);
 	}

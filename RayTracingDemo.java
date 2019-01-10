@@ -12,6 +12,7 @@ public class RayTracingDemo {
 		environment.addObject(new Sphere(0, -1, 3, 1, Color.RED, 0.5));
 		environment.addObject(new Sphere(1.5, 0, 5, 1, Color.GREEN, 0.5));
 		environment.addObject(new Sphere(-1.5, 0, 5, 1, Color.YELLOW, 0.5));
+		environment.addObject(new Sphere(0, 1, 6, 0.5, Color.WHITE, 1.0));
 
 		BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT,
 				BufferedImage.TYPE_INT_RGB);
