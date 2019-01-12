@@ -42,8 +42,7 @@ public class Environment {
 		}
 	}
 
-	// Traces a ray from a source point to the nearest material.
-	// Returns null if there is no object in the ray's path.
+	// Traces a ray from a source point to the nearest material
 	private Color traceRay(Vector3D source, Vector3D direction, int depth) {
 		Material3D closest = null;
 		Vector3D surface = null;
@@ -72,6 +71,9 @@ public class Environment {
 		double intensity = normal.dot(toLight);
 		if(intensity < ambient)
 			intensity = ambient;
+		else if(isShadowed(surface)) {
+			intensity = ambient;
+		}
 		Color direct = ColorUtils.scaleColor(material.getColorAt(surface), intensity);
 		if(depth <= 1) {
 			return direct;
@@ -89,5 +91,21 @@ public class Environment {
 				return ColorUtils.mix(direct, reflected, ratio);
 			}
 		}
+	}
+
+	// Returns true if there is an object blocking the light's path to the specified point; false otherwise.
+	private boolean isShadowed(Vector3D surface) {
+		Vector3D difference = light.subtract(surface);
+		double distanceToLight = difference.magnitude();
+		Vector3D toLight = difference.normalize();
+		for(Material3D object : objects) {
+			Vector3D intersection = object.getIntersection(surface, toLight);
+			if(intersection != null) {
+				double distance = intersection.subtract(surface).magnitude();
+				if(distance < distanceToLight)
+					return true;
+			}
+		}
+		return false;
 	}
 }
