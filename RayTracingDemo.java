@@ -1,5 +1,8 @@
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class RayTracingDemo {
@@ -9,9 +12,9 @@ public class RayTracingDemo {
 	public static void main(String[] args) {
 		Environment environment = new Environment();
 		environment.addObject(new Sphere(0, -500, 0, 499, Color.LIGHT_GRAY, 0.5));
-		environment.addObject(new Sphere(0, -1, 3, 1, Color.RED, 0.5));
-		environment.addObject(new Sphere(1.5, 0, 5, 1, Color.GREEN, 0.5));
-		environment.addObject(new Sphere(-1.5, 0, 5, 1, Color.YELLOW, 0.5));
+		environment.addObject(new Sphere(0, -1, 3, 1, Color.BLUE, 0.5));
+		environment.addObject(new Sphere(1.5, 0, 6, 1, Color.RED, 0.5));
+		environment.addObject(new Sphere(-1.5, 0, 5, 1, Color.GREEN, 0.5));
 		environment.addObject(new Sphere(0, 1, 6, 0.5, Color.WHITE, 1.0));
 
 		BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT,
@@ -24,5 +27,11 @@ public class RayTracingDemo {
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+
+		try {
+			ImageIO.write(image, "png", new File("demo.png"));
+		} catch (IOException ex) {
+			System.err.println("Could not save image: " + ex.getMessage());
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Base class for shapes with uniform color.

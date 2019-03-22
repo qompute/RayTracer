@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 
 public final class Sphere extends SolidMaterial {
 	private final Vector3D center;
@@ -38,14 +38,15 @@ public final class Sphere extends SolidMaterial {
 		Vector3D v = source.subtract(center);
 		double b = -v.dot(direction);
 		double discriminant = b * b - v.dot(v) + radius * radius;
-		if(discriminant < 0)
+		if (discriminant < 0) {
 			return null;
+		}
 		double root = b - Math.sqrt(discriminant);
-		if(root > RAY_OFFSET) {
+		if (root > RAY_OFFSET) {
 			return source.add(direction.scale(root));
 		}
 		root = b + Math.sqrt(discriminant);
-		if(root > RAY_OFFSET) {
+		if (root > RAY_OFFSET) {
 			return source.add(direction.scale(root));
 		}
 		return null;
