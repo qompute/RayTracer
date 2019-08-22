@@ -2,7 +2,7 @@
 A simple ray tracing program written in Java.
 
 ## Description
-This project uses [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)), a graphics technique for rendering three-dimsional scenes, to generate a photorealistic image.
+This project uses [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)), a graphics technique for rendering three-dimensional scenes, to generate a photorealistic image.
 
 Ray tracing is a technique that simulates light from a light source bouncing off an object and being reflected into a camera. In this project, the camera is represented by the [Camera3D](Camera3D.java) class, and objects in the scene are represented using the [Material3D](Material3D.java) interface.
 
